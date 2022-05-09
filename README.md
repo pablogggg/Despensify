@@ -19,6 +19,7 @@ Lenguaje: Java
 Base de Datos: MySQL
 
 //Añadir campos conforme avance el proyecto//
+//Puedo añadir el patrón de diseño que finalmente utilice y hablar un poco de éste//
 
 ## Pantallas (otra opción es enfocar este apartado como un Tutorial o Guía del Usuario, con pantallas y a su lado una explicación para todas ellas ordenada.
 
@@ -31,3 +32,7 @@ Otros alumnos han hecho encabezados más pequeños por ej. para el Login, debajo
 //Una posibilidad que pudo contemplar es introducir un pantallazo de las tablas que se generen en MySQL//
 
 //Como la aplicación será escalable, si se añaden nuevas funcionalidades habrá que ir añadiéndolas al Readme conforme se programen.//
+
+## Diagrama de clases o de funcionamiento de la App 
+
+//Añadir captura de los diagramas realizados antes de programar la app. 
