@@ -1,6 +1,6 @@
 # Despensify
 
-Código JAVA utilizado para programar la aplicación de escritorio para dsepensas digitales Despensify.
+Código JAVA utilizado para programar la aplicación de escritorio para despensas digitales Despensify.
 
 ## Descripción
 
@@ -29,3 +29,5 @@ Otros alumnos han hecho encabezados más pequeños por ej. para el Login, debajo
 //
 
 //Una posibilidad que pudo contemplar es introducir un pantallazo de las tablas que se generen en MySQL//
+
+//Como la aplicación será escalable, si se añaden nuevas funcionalidades habrá que ir añadiéndolas al Readme conforme se programen.//
