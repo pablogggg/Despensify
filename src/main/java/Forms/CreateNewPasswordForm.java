@@ -93,7 +93,7 @@ public class CreateNewPasswordForm implements ActionListener {
             try { 
                     
                 Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union");
-                PreparedStatement  Pstatement = conn.prepareStatement("update user set password=? where username=? AND password=?"); 
+                PreparedStatement  Pstatement = conn.prepareStatement("update user set password=SHA2(?, 256) where username=? AND password=SHA2(?, 256)"); 
                     
                 Pstatement.setString(1, newPasswordTextField.getText());
                 Pstatement.setString(2, currentUserTextField.getText());

@@ -61,8 +61,13 @@ public class UserPanelForm implements ActionListener {
                 if (e.getSource() == backToAppButton) {
                         try {
                             frame.dispose();
-                            //A continuacion el nombre del MainAppForm cuando lo tenga
-                            new MainAppForm();
+
+
+                            java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new DespensifyForm().setVisible(true);
+                        }
+                    });
                             
                         } catch (Exception e1) {
                         e1.printStackTrace();

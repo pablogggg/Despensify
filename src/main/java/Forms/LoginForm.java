@@ -118,7 +118,12 @@ public class LoginForm implements ActionListener {
                     //if username and password are true then go to mainpage
                     frame.dispose();
 
-                    MainAppForm mainAppForm = new Forms.MainAppForm();
+
+                    java.awt.EventQueue.invokeLater(new Runnable() {
+                        public void run() {
+                            new DespensifyForm().setVisible(true);
+                        }
+                    });
 
                 } else {
                     //Infobox que se muestra al usuario si el login falla
