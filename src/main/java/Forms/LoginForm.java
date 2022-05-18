@@ -1,6 +1,5 @@
 package Forms;
 
-import data.DBConnection;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -14,29 +13,24 @@ public class LoginForm implements ActionListener {
     JLabel userLabel = new JLabel("User");
     JLabel passwordLabel = new JLabel("Password");
     JTextField userTextField = new JTextField();
-    JTextField passwordField = new JTextField();
+    JTextField passwordField = new JPasswordField();
     JButton loginButton = new JButton("Login");
     JButton goToRegisterButton = new JButton("Create New Account");
 
-    public static String userSession;
-    //Guarda la contrasenna de esta sesion en una variable
-    private static String passwordSession;
-    
-    
+    //Guarda el usuario de esta sesion en una variable que nos servirá
+    //para identificarlo en la pantalla Panel de Usuario
+    private static String userSession;
 
-    //Hago un setter para cambiar passwordSession si actualizamos
-    public static void setPasswordSession(String passwordSession) {
-        LoginForm.passwordSession = passwordSession;
+    //Getters y setters para la variable userSession
+    public static String getUserSession() {
+        return userSession;
     }
 
-    public static String getPasswordSession() {
-        return passwordSession;
+    public static void setUserSession(String userSession) {
+        LoginForm.userSession = userSession;
     }
-    
-    
-  
-    
-    
+
+    //Constructor de la clase. Usa 4 metodos para generar el formulario
     public LoginForm() {
         createWindow();
         setLocationAndSize();
@@ -73,12 +67,18 @@ public class LoginForm implements ActionListener {
         frame.add(loginButton);
     }
 
+    //Metodo infobox para mostrar un mensaje cuando el login no sea correcto
+    public static void infoBox(String infoMessage, String titleBar) {
+        JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public void actionEvent() {
         goToRegisterButton.addActionListener(this);
         loginButton.addActionListener(this);
     }
 
-    //El siguiente boton sirve para pasar al formulario de REGISTRO
+    //El siguiente boton sirve para pasar al formulario de REGISTRO si aun no
+    //disponemos de cuenta
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == goToRegisterButton) {
@@ -90,42 +90,48 @@ public class LoginForm implements ActionListener {
                 e1.printStackTrace();
             }
         }
-        //A partir de aqui el boton de login
+
+        //Boton para realizar el login
         if (e.getSource() == loginButton) {
             try {
+
                 //Objeto conexion
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union");
-                String u = userTextField.getText();
-                String c = passwordField.getText();
-                
-                //Relleno las 2 variables que declaré arriba que serán las que
-                //guarden durante la sesion el usuario y la contrasenna
+                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union");
+                PreparedStatement Pstatement = connection.prepareStatement("SELECT * FROM user WHERE username=? and password=SHA2(?, 256)");
+
+                Pstatement.setString(1, userTextField.getText());
+                Pstatement.setString(2, passwordField.getText());
+
+                Pstatement.executeQuery();
+                //Vaciamos la variable por seguridad
+                passwordField.setText("");
+
+                //Relleno la variable usuario que declaré arriba que será la que
+                //guarde el usuario durante la sesion 
                 userSession = userTextField.getText();
-                passwordSession = passwordField.getText();
 
-                Statement stm = con.createStatement();
-                //mysql query to run
-                String sql = "SELECT * FROM user WHERE username = '" + u + "' and password = '" + c + "' ";
-                ResultSet rs = stm.executeQuery(sql);
-
+                ResultSet rs;
+                rs = Pstatement.executeQuery();
                 if (rs.next()) {
+
                     //if username and password are true then go to mainpage
                     frame.dispose();
 
                     MainAppForm mainAppForm = new Forms.MainAppForm();
 
                 } else {
-                    //if username and password is wrong show message
-                    System.out.println("Error al logearse");
+                    //Infobox que se muestra al usuario si el login falla
+                    infoBox("Login failed", "Incorrect password or username");
                 }
 
-                con.close();
+                connection.close();
 
             } catch (SQLException e1) {
-                e1.printStackTrace();
+                System.out.println("Fallo de tipo SQL");
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
+
             }
         }
     }

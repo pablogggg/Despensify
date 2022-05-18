@@ -1,7 +1,5 @@
 package Forms;
 
-import data.UserDAO;
-import domain.User;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -14,7 +12,7 @@ public class RegisterForm implements ActionListener {
     JLabel userLabel = new JLabel("User");
     JLabel passwordLabel = new JLabel("Password");
     JTextField userTextField = new JTextField();
-    JTextField passwordField = new JTextField();
+    JTextField passwordField = new JPasswordField();
     JButton goToLoginButton = new JButton("Already have an account?");
     JButton registerButton = new JButton("Register");
 
@@ -86,10 +84,15 @@ public class RegisterForm implements ActionListener {
                 //Objeto conexion
                 Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union");
                 //Preapared Statement
-                PreparedStatement Pstatement = connection.prepareStatement("insert into user(username, password) values(?, ?)");
+                PreparedStatement Pstatement = connection.prepareStatement("INSERT into user(username, password) values(?, SHA2(?, 256))");
                 Pstatement.setString(1, userTextField.getText());
                 Pstatement.setString(2, passwordField.getText());
                 Pstatement.executeUpdate();
+                
+                //Los dos siguientes setText vacian los dos text field
+                userTextField.setText("");
+                passwordField.setText("");
+                
                 //Llamamos al metodo que musetra la etiqueta de registro correcto
                 infoBox("Nuevo usuario registrado", "Registrado correctamente");
                 

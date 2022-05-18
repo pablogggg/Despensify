@@ -1,18 +1,16 @@
 
 package Forms;
 
-import Forms.LoginForm;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.sql.*;
 
 public class UserPanelForm implements ActionListener {
 	JFrame frame;
 	JLabel userLabel=new JLabel("User: ");
 	JLabel passwordLabel=new JLabel("Password: ");
-	JLabel currentUserTextField=new JLabel(LoginForm.userSession );
-	JLabel currentPasswordField=new JLabel(LoginForm.getPasswordSession());
+	JLabel currentUserTextField=new JLabel(LoginForm.getUserSession());
+	JLabel currentPasswordField=new JLabel("****");
 	JButton goToUpdatePasswordButton=new JButton("Update Password Menu");
 	JButton backToAppButton=new JButton("Back to the Application");
 
@@ -57,7 +55,6 @@ public class UserPanelForm implements ActionListener {
             goToUpdatePasswordButton.addActionListener(this);
 	}
     
-    
 	//El siguiente boton debe servirnos pa volver a la MainAppForm
 	@Override
             public void actionPerformed(ActionEvent e) {
@@ -66,6 +63,7 @@ public class UserPanelForm implements ActionListener {
                             frame.dispose();
                             //A continuacion el nombre del MainAppForm cuando lo tenga
                             new MainAppForm();
+                            
                         } catch (Exception e1) {
                         e1.printStackTrace();
                         }
