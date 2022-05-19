@@ -1,7 +1,6 @@
 package Application;
 
-//Prueba para Github
-//Importing every form from the Forms package
+//Importo todos los formularios para poder realizar pruebas en esta clase
 import Forms.DespensifyForm;
 import Forms.LoginForm;
 import Forms.MainAppForm;

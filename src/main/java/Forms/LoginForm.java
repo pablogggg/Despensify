@@ -17,11 +17,14 @@ public class LoginForm implements ActionListener {
     JButton loginButton = new JButton("Login");
     JButton goToRegisterButton = new JButton("Create New Account");
 
-    //Guarda el usuario de esta sesion en una variable que nos servirá
-    //para identificarlo en la pantalla Panel de Usuario
+    //La siguiente variable guarda el usuario de esta sesion en una variable que
+    // nos servirá para identificarlo en la pantalla Panel de Usuario.
     private static String userSession;
+    //La variable siguiente sirve para guardar el id_usuario de la tabla user
+    //correspondiente al usuario que se ha logeado.
+    private static String thisSessionUserId;
 
-    //Getters y setters para la variable userSession
+    //Getters y setters para las dos variables anteriorse
     public static String getUserSession() {
         return userSession;
     }
@@ -29,6 +32,15 @@ public class LoginForm implements ActionListener {
     public static void setUserSession(String userSession) {
         LoginForm.userSession = userSession;
     }
+
+    public static String getThisSessionUserId() {
+        return thisSessionUserId;
+    }
+
+    public static void setThisSessionUserId(String thisSessionUserId) {
+        LoginForm.thisSessionUserId = thisSessionUserId;
+    }
+    
 
     //Constructor de la clase. Usa 4 metodos para generar el formulario
     public LoginForm() {
@@ -97,40 +109,55 @@ public class LoginForm implements ActionListener {
 
                 //Objeto conexion
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union");
-                PreparedStatement Pstatement = connection.prepareStatement("SELECT * FROM user WHERE username=? and password=SHA2(?, 256)");
-
-                Pstatement.setString(1, userTextField.getText());
-                Pstatement.setString(2, passwordField.getText());
-
-                Pstatement.executeQuery();
-                //Vaciamos la variable por seguridad
-                passwordField.setText("");
-
-                //Relleno la variable usuario que declaré arriba que será la que
-                //guarde el usuario durante la sesion 
-                userSession = userTextField.getText();
-
-                ResultSet rs;
-                rs = Pstatement.executeQuery();
-                if (rs.next()) {
-
-                    //if username and password are true then go to mainpage
-                    frame.dispose();
-
-
-                    java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            new DespensifyForm().setVisible(true);
-                        }
-                    });
-
-                } else {
-                    //Infobox que se muestra al usuario si el login falla
-                    infoBox("Login failed", "Incorrect password or username");
+                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union")) {
+                    PreparedStatement Pstatement = connection.prepareStatement("SELECT * FROM user WHERE username=? and password=SHA2(?, 256)");
+                    
+                    Pstatement.setString(1, userTextField.getText());
+                    Pstatement.setString(2, passwordField.getText());
+                    
+                    Pstatement.executeQuery();
+                    //Vaciamos la variable por seguridad
+                    passwordField.setText("");
+                    
+                    //Relleno la variable usuario que declaré arriba que será la que
+                    //guarde el usuario durante la sesion
+                    userSession = userTextField.getText();
+                    
+                    ResultSet rs;
+                    rs = Pstatement.executeQuery();
+                    if (rs.next()) {
+                        
+                        
+                        //Estoy trabajando en esto************
+                        
+                        java.sql.PreparedStatement preparedStatement = null;
+                        String query = "select user_id from user where username=?";
+                        
+                        preparedStatement = connection.prepareStatement(query);
+                        
+                        preparedStatement.setString(1, userSession);
+                        ResultSet rs2 = preparedStatement.executeQuery();
+                        thisSessionUserId = null;
+                        if(rs2.next())
+                            thisSessionUserId = rs2.getString(1);
+                        
+                        //************************************
+                        
+                        
+                        //if username and password are true then go to mainpage
+                        frame.dispose();
+                        
+                        java.awt.EventQueue.invokeLater(new Runnable() {
+                            public void run() {
+                                new DespensifyForm().setVisible(true);
+                            }
+                        });
+                        
+                    } else {
+                        //Infobox que se muestra al usuario si el login falla
+                        infoBox("Login failed", "Incorrect password or username");
+                    }
                 }
-
-                connection.close();
 
             } catch (SQLException e1) {
                 System.out.println("Fallo de tipo SQL");

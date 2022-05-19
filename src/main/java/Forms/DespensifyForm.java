@@ -227,7 +227,7 @@ public class DespensifyForm extends javax.swing.JFrame {
     Connection con1;
     PreparedStatement insert;
 
-    //METODO PARA ACTUALIZAR LA TABLA Y METER LA INFO DE LA BD EN LA TABLA 
+    //METODO PARA ACTUALIZAR LA TABLA Y METER LA INFO DE LA BD EN LA TABLA
     //DEL PROPIO FORM
     private void tableUpdate() {
         int c;
