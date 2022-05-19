@@ -5,7 +5,7 @@ import java.awt.event.*;
 import java.awt.*;
 import java.sql.*;
 
-public class RegisterForm implements ActionListener {
+public final class RegisterForm implements ActionListener {
 
     JFrame frame;
     JLabel topLabel = new JLabel("Please choose your username and password");
@@ -71,7 +71,7 @@ public class RegisterForm implements ActionListener {
         if (e.getSource() == goToLoginButton) {
             try {
                 frame.dispose();
-                new LoginForm();
+                LoginForm loginForm = new LoginForm();
 
             } catch (Exception e1) {
                 e1.printStackTrace();
@@ -97,9 +97,8 @@ public class RegisterForm implements ActionListener {
                 infoBox("Nuevo usuario registrado", "Registrado correctamente");
                 
             } catch (SQLException e1) {
-                e1.printStackTrace();
+                System.out.println("SQL Exception in Register");
             }
         }
     }
-
 }

@@ -1,11 +1,10 @@
-
 package Forms;
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 
-public class UserPanelForm implements ActionListener {
+public final class UserPanelForm implements ActionListener {
 	JFrame frame;
 	JLabel userLabel=new JLabel("User: ");
 	JLabel passwordLabel=new JLabel("Password: ");
@@ -63,22 +62,20 @@ public class UserPanelForm implements ActionListener {
                             frame.dispose();
 
 
-                            java.awt.EventQueue.invokeLater(new Runnable() {
-                        public void run() {
-                            new DespensifyForm().setVisible(true);
-                        }
-                    });
+                            java.awt.EventQueue.invokeLater(() -> {
+                                new DespensifyForm().setVisible(true);
+                            });
                             
                         } catch (Exception e1) {
-                        e1.printStackTrace();
+                            System.out.println("");
                         }
                 }
                 if (e.getSource() == goToUpdatePasswordButton) {
                     try{
                         frame.dispose();
-                        new CreateNewPasswordForm();
+                        CreateNewPasswordForm createNewPasswordForm = new CreateNewPasswordForm();
                     }catch (Exception e1){
-                        e1.printStackTrace();
+                        System.out.println("");
                     }
                 }
             }

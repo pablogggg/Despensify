@@ -6,7 +6,7 @@ import java.awt.*;
 import java.sql.*;
 
 
-public class CreateNewPasswordForm implements ActionListener {
+public final class CreateNewPasswordForm implements ActionListener {
 
     JFrame frame;
     JLabel currentUserLabel = new JLabel("Current user");
@@ -15,7 +15,7 @@ public class CreateNewPasswordForm implements ActionListener {
     JTextField currentUserTextField = new JTextField();
     //En este textfield se escribe la contrasena actual
     JTextField currentPasswordTextField = new JPasswordField();
-    //en este textfield se escribe la contrasena nueva que se quiere
+    //En este textfield se escribe la contrasena nueva que se quiere
     JTextField newPasswordTextField = new JPasswordField();
     JButton createNewPasswordButton = new JButton("Create New Password");
     JButton backToUserPanelButton = new JButton("Back to User Panel");
@@ -65,7 +65,7 @@ public class CreateNewPasswordForm implements ActionListener {
         backToUserPanelButton.addActionListener(this);
     }
 
-    //Metodo de prueba para mostrar un mensaje al actualizar la contrasenna
+    //Metodo utilizado para mostrar un mensaje al actualizar la contrasena
     public static void infoBox(String infoMessage, String titleBar) {
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
@@ -75,10 +75,10 @@ public class CreateNewPasswordForm implements ActionListener {
         if (e.getSource() == backToUserPanelButton) {
             try {
                 frame.dispose();
-                new UserPanelForm();
+                UserPanelForm userPanelForm = new UserPanelForm();
 
             } catch (Exception e1) {
-                e1.printStackTrace();
+                System.out.println("Error al volver a Panel de Usuario");
             }
         }
 

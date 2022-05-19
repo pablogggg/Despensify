@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.*;
 
 
-//La clase DAO de User será la que implemente su funcionalidad.
+//La clase DAO será la que implemente la funcionalidad de la tabla user.
 public class UserDAO {
     
     //Generamos 4 variables para las operaciones SQL
@@ -57,7 +57,6 @@ public class UserDAO {
         }
         return users;
     }
-
     
     //Metodo para hacer INSERT en la tabla
     public int insert(User user) {
@@ -70,7 +69,7 @@ public class UserDAO {
             stmt.setString(1, user.getUsername());
             stmt.setString(2, user.getPassword());
             registros = stmt.executeUpdate();
-            //lo de arriba para que actualice el estado de la BD
+            //la linea anterrior sirve para actualizar el estado de la BD
 
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -109,7 +108,6 @@ public class UserDAO {
                 ex.printStackTrace(System.out);
             }
         }
-
         return registros;
     }
     
@@ -122,7 +120,7 @@ public class UserDAO {
             stmt = conn.prepareStatement(SQL_DELETE);
             stmt.setInt(1, user.getUserId());
             registros = stmt.executeUpdate();
-            //lo de arriba para que actualice el estado de la BD
+            //la linea anteriro sirve para actualizar el estado de la BD
 
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
@@ -134,9 +132,6 @@ public class UserDAO {
                 ex.printStackTrace(System.out);
             }
         }
-        
         return registros;
     }
-    
-
 }

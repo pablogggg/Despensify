@@ -2,7 +2,7 @@ package data;
 
 import java.sql.*;
 
-//Esta ya es la clase de Conexion para todo el proyecto Despensify
+//Esta ya es la clase de Conexion a BD para todo el proyecto Despensify
 public class DBConnection {
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/despensify?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
     private static final String JDBC_USER = "root";

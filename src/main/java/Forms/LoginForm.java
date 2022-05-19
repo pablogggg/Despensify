@@ -1,5 +1,6 @@
 package Forms;
 
+import data.DBConnection;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -7,7 +8,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class LoginForm implements ActionListener {
+public final class LoginForm implements ActionListener {
 
     JFrame frame;
     JLabel userLabel = new JLabel("User");
@@ -40,7 +41,6 @@ public class LoginForm implements ActionListener {
     public static void setThisSessionUserId(String thisSessionUserId) {
         LoginForm.thisSessionUserId = thisSessionUserId;
     }
-    
 
     //Constructor de la clase. Usa 4 metodos para generar el formulario
     public LoginForm() {
@@ -96,10 +96,10 @@ public class LoginForm implements ActionListener {
         if (e.getSource() == goToRegisterButton) {
             try {
                 frame.dispose();
-                new RegisterForm();
+                RegisterForm registerForm = new RegisterForm();
 
             } catch (Exception e1) {
-                e1.printStackTrace();
+                System.out.println("Fallo al abrir el formulario Register");
             }
         }
 
@@ -109,7 +109,10 @@ public class LoginForm implements ActionListener {
 
                 //Objeto conexion
                 Class.forName("com.mysql.jdbc.Driver");
-                try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union")) {
+                //Cambio este metodo de conexion por el que llama a la clase DBConnection
+                //try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union")) {
+                    
+                try (Connection connection = DBConnection.getConnection()) {   
                     PreparedStatement Pstatement = connection.prepareStatement("SELECT * FROM user WHERE username=? and password=SHA2(?, 256)");
                     
                     Pstatement.setString(1, userTextField.getText());
@@ -127,10 +130,7 @@ public class LoginForm implements ActionListener {
                     rs = Pstatement.executeQuery();
                     if (rs.next()) {
                         
-                        
-                        //Estoy trabajando en esto************
-                        
-                        java.sql.PreparedStatement preparedStatement = null;
+                        java.sql.PreparedStatement preparedStatement;
                         String query = "select user_id from user where username=?";
                         
                         preparedStatement = connection.prepareStatement(query);
@@ -141,16 +141,11 @@ public class LoginForm implements ActionListener {
                         if(rs2.next())
                             thisSessionUserId = rs2.getString(1);
                         
-                        //************************************
-                        
-                        
                         //if username and password are true then go to mainpage
                         frame.dispose();
                         
-                        java.awt.EventQueue.invokeLater(new Runnable() {
-                            public void run() {
-                                new DespensifyForm().setVisible(true);
-                            }
+                        java.awt.EventQueue.invokeLater(() -> {
+                            new DespensifyForm().setVisible(true);
                         });
                         
                     } else {
@@ -163,7 +158,6 @@ public class LoginForm implements ActionListener {
                 System.out.println("Fallo de tipo SQL");
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(LoginForm.class.getName()).log(Level.SEVERE, null, ex);
-
             }
         }
     }
