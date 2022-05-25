@@ -104,7 +104,8 @@ public final class LoginForm implements ActionListener {
                 System.out.println("Fallo al abrir el formulario Register");
             }
         }
-
+ 
+        
         //Boton para realizar el login
         if (e.getSource() == loginButton) {
 
