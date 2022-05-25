@@ -53,6 +53,8 @@ public class DespensifyForm extends javax.swing.JFrame {
         jLabel1.setText("Product Name");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Item Registration"));
+        jPanel1.setForeground(new java.awt.Color(255, 51, 51));
+        jPanel1.setOpaque(false);
 
         jLabel2.setText("Product Name");
 
@@ -197,8 +199,8 @@ public class DespensifyForm extends javax.swing.JFrame {
                                         .addComponent(jButton5Logout)
                                         .addGap(23, 23, 23)))))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -230,7 +232,7 @@ public class DespensifyForm extends javax.swing.JFrame {
     private void tableUpdate() {
         int c;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
             con1 = DBConnection.getConnection();
             insert = con1.prepareStatement("SELECT * FROM item WHERE user_id=?");
@@ -275,7 +277,7 @@ public class DespensifyForm extends javax.swing.JFrame {
 
         //CODIFICAMOS LA INSERCION DE LOS VALORES A LA BD A TRAVES DEL FORM
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
             con1 = DBConnection.getConnection();
             insert = con1.prepareStatement("INSERT into item(productname, quantity, measurement, user_id)values(?,?,?,?)");
             insert.setString(1, productname);
@@ -331,7 +333,7 @@ public class DespensifyForm extends javax.swing.JFrame {
             String quantity = txtquantity.getText();
             String measurement = txtmeasurement.getText();
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
             insert = con1.prepareStatement("UPDATE item SET productname =?, quantity =?, measurement =? WHERE item_id =? ");
             insert.setString(1, productname);
@@ -372,7 +374,7 @@ public class DespensifyForm extends javax.swing.JFrame {
 
             if (dialogResult == JOptionPane.YES_OPTION) {
 
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
 
                 insert = con1.prepareStatement("DELETE FROM item WHERE item_id =? ");
 

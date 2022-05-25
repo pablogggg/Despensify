@@ -12,7 +12,7 @@ public class User {
     public User(){
     }
     
-    //Constructor que sirve para deletear usando solo el id de usuario
+    //Constructor que sirve para eliminar usando solo el id de usuario
     public User(int userId){
         this.userId = userId;
     }

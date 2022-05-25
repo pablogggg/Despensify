@@ -1,5 +1,6 @@
 package Forms;
 
+import data.DBConnectors;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -74,30 +75,19 @@ public final class RegisterForm implements ActionListener {
                 LoginForm loginForm = new LoginForm();
 
             } catch (Exception e1) {
-                e1.printStackTrace();
             }
         }
 
         if (e.getSource() == registerButton) {
 
-            try {
-                //Objeto conexion
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union");
-                //Preapared Statement
-                PreparedStatement Pstatement = connection.prepareStatement("INSERT into user(username, password) values(?, SHA2(?, 256))");
-                Pstatement.setString(1, userTextField.getText());
-                Pstatement.setString(2, passwordField.getText());
-                Pstatement.executeUpdate();
-                
-                //Los dos siguientes setText vacian los dos text field
-                userTextField.setText("");
+            
+            Boolean registerOk = DBConnectors.Registerer(userTextField.getText(), passwordField.getText());
+            
+            if (registerOk) {
+                frame.dispose();
                 passwordField.setText("");
-                
-                //Llamamos al metodo que musetra la etiqueta de registro correcto
-                infoBox("Nuevo usuario registrado", "Registrado correctamente");
-                
-            } catch (SQLException e1) {
-                System.out.println("SQL Exception in Register");
+            } else{
+                infoBox("Incorrect username or password entered", "Register failed");
             }
         }
     }

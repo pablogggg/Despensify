@@ -13,7 +13,7 @@ public final class UserPanelForm implements ActionListener {
 	JButton goToUpdatePasswordButton=new JButton("Update Password Menu");
 	JButton backToAppButton=new JButton("Back to the Application");
 
-	public UserPanelForm(){
+	public UserPanelForm(){  
             createWindow();
             setLocationAndSize();
             addComponentsToFrame();
