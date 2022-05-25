@@ -1,6 +1,6 @@
 package domain;
 
-//Esta clase representa una entidad: la tabla User de MySQL. A 
+//Esta clase representa una entidad: la tabla user de MySQL. A 
 //partir de ella haremos los Insert, Update, Delete y Select.
 
 public class User {
@@ -12,7 +12,7 @@ public class User {
     public User(){
     }
     
-    //Constructor que sirve para deletear usando solo el id
+    //Constructor que sirve para eliminar usando solo el id de usuario
     public User(int userId){
         this.userId = userId;
     }
@@ -24,7 +24,7 @@ public class User {
         this.password = password;
     }
     
-    //Constructor con TODO para MODIFICAR la tabla
+    //Constructor con todos los campos para MODIFICAR la tabla
     public User(int userId, String user, String password){
         this. userId = userId;
         this.username = user;
@@ -32,7 +32,6 @@ public class User {
     }
     
     //Getters y Setters
-
     public int getUserId() {
         return userId;
     }
@@ -58,10 +57,8 @@ public class User {
     }
     
     //Metodo ToString
-
     @Override
     public String toString() {
         return "User{" + "userId=" + userId + ", user=" + username + ", password=" + password + '}';
     }
-    
 }

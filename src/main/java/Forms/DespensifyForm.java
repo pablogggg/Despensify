@@ -1,5 +1,6 @@
 package Forms;
 
+import data.DBConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,9 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class DespensifyForm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form DespensifyForm
-     */
+    //Creamos el nuevo Formulario para la pantalla principal de la app
     public DespensifyForm() {
         initComponents();
         tableUpdate();
@@ -54,6 +53,8 @@ public class DespensifyForm extends javax.swing.JFrame {
         jLabel1.setText("Product Name");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Item Registration"));
+        jPanel1.setForeground(new java.awt.Color(255, 51, 51));
+        jPanel1.setOpaque(false);
 
         jLabel2.setText("Product Name");
 
@@ -198,8 +199,8 @@ public class DespensifyForm extends javax.swing.JFrame {
                                         .addComponent(jButton5Logout)
                                         .addGap(23, 23, 23)))))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,15 +228,16 @@ public class DespensifyForm extends javax.swing.JFrame {
     Connection con1;
     PreparedStatement insert;
 
-    //METODO PARA ACTUALIZAR LA TABLA Y METER LA INFO DE LA BD EN LA TABLA
-    //DEL PROPIO FORM
+    //METODO PARA ACTUALIZAR LA TABLA DEL FORMULARIO CON LA INFO DEE LA BD
     private void tableUpdate() {
         int c;
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union");
-            insert = con1.prepareStatement("SELECT * FROM item");
+            con1 = DBConnection.getConnection();
+            insert = con1.prepareStatement("SELECT * FROM item WHERE user_id=?");
+            insert.setString(1, LoginForm.getThisSessionUserId());
+
             ResultSet rs = insert.executeQuery();
             ResultSetMetaData Rss = rs.getMetaData();
             c = Rss.getColumnCount();
@@ -275,12 +277,13 @@ public class DespensifyForm extends javax.swing.JFrame {
 
         //CODIFICAMOS LA INSERCION DE LOS VALORES A LA BD A TRAVES DEL FORM
         try {
-            Class.forName("com.mysql.jdbc.Driver");
-            con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union");
-            insert = con1.prepareStatement("INSERT into item(productname, quantity, measurement)values(?,?,?)");
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con1 = DBConnection.getConnection();
+            insert = con1.prepareStatement("INSERT into item(productname, quantity, measurement, user_id)values(?,?,?,?)");
             insert.setString(1, productname);
             insert.setString(2, quantity);
             insert.setString(3, measurement);
+            insert.setString(4, LoginForm.getThisSessionUserId());
             insert.executeUpdate();
 
             JOptionPane.showMessageDialog(this, "Record Added");
@@ -310,8 +313,6 @@ public class DespensifyForm extends javax.swing.JFrame {
         txtproductname.setText(Df.getValueAt(selectedIndex, 1).toString());
         txtquantity.setText(Df.getValueAt(selectedIndex, 2).toString());
         txtmeasurement.setText(Df.getValueAt(selectedIndex, 3).toString());
-
-
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void txtproductnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtproductnameActionPerformed
@@ -332,15 +333,13 @@ public class DespensifyForm extends javax.swing.JFrame {
             String quantity = txtquantity.getText();
             String measurement = txtmeasurement.getText();
 
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-            con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union");
             insert = con1.prepareStatement("UPDATE item SET productname =?, quantity =?, measurement =? WHERE item_id =? ");
             insert.setString(1, productname);
             insert.setString(2, quantity);
             insert.setString(3, measurement);
             insert.setInt(4, id);
-//esto podria darme fallo si no cuadra mi nombre de id y el suyo min 53
 
             insert.executeUpdate();
 
@@ -358,8 +357,6 @@ public class DespensifyForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
     //BOTON DELETE
@@ -377,9 +374,8 @@ public class DespensifyForm extends javax.swing.JFrame {
 
             if (dialogResult == JOptionPane.YES_OPTION) {
 
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.mysql.cj.jdbc.Driver");
 
-                con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union");
                 insert = con1.prepareStatement("DELETE FROM item WHERE item_id =? ");
 
                 insert.setInt(1, id);
@@ -394,7 +390,6 @@ public class DespensifyForm extends javax.swing.JFrame {
                 txtquantity.setText("");
                 txtmeasurement.setText("");
                 txtproductname.requestFocus();
-
             }
 
         } catch (ClassNotFoundException ex) {
@@ -430,7 +425,6 @@ public class DespensifyForm extends javax.swing.JFrame {
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-
     }//GEN-LAST:event_jButton5LogoutActionPerformed
 
     /**

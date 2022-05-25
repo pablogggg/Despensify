@@ -1,12 +1,14 @@
 package Forms;
 
+import data.DBConnection;
+import data.DBConnectors;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.sql.*;
 
 
-public class CreateNewPasswordForm implements ActionListener {
+public final class CreateNewPasswordForm implements ActionListener {
 
     JFrame frame;
     JLabel currentUserLabel = new JLabel("Current user");
@@ -15,7 +17,7 @@ public class CreateNewPasswordForm implements ActionListener {
     JTextField currentUserTextField = new JTextField();
     //En este textfield se escribe la contrasena actual
     JTextField currentPasswordTextField = new JPasswordField();
-    //en este textfield se escribe la contrasena nueva que se quiere
+    //En este textfield se escribe la contrasena nueva que se quiere
     JTextField newPasswordTextField = new JPasswordField();
     JButton createNewPasswordButton = new JButton("Create New Password");
     JButton backToUserPanelButton = new JButton("Back to User Panel");
@@ -65,7 +67,7 @@ public class CreateNewPasswordForm implements ActionListener {
         backToUserPanelButton.addActionListener(this);
     }
 
-    //Metodo de prueba para mostrar un mensaje al actualizar la contrasenna
+    //Metodo utilizado para mostrar un mensaje al actualizar la contrasena
     public static void infoBox(String infoMessage, String titleBar) {
         JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
     }
@@ -75,42 +77,25 @@ public class CreateNewPasswordForm implements ActionListener {
         if (e.getSource() == backToUserPanelButton) {
             try {
                 frame.dispose();
-                new UserPanelForm();
+                UserPanelForm userPanelForm = new UserPanelForm();
 
             } catch (Exception e1) {
-                e1.printStackTrace();
+                System.out.println("Error al volver a Panel de Usuario");
             }
         }
 
         if (e.getSource() == createNewPasswordButton) {
-            String jdbcUrl = "jdbc:mysql://localhost:3306/despensify";
-            String username = "root";
-            String password = "union";
             String newUser = currentUserTextField.getText();
             String newPassword = newPasswordTextField.getText();
             String currentPassword = currentPasswordTextField.getText();
             
-            try { 
-                    
-                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union");
-                PreparedStatement  Pstatement = conn.prepareStatement("update user set password=SHA2(?, 256) where username=? AND password=SHA2(?, 256)"); 
-                    
-                Pstatement.setString(1, newPasswordTextField.getText());
-                Pstatement.setString(2, currentUserTextField.getText());
-                Pstatement.setString(3, currentPasswordTextField.getText());
-                Pstatement.executeUpdate();
+             Boolean passwordOk = DBConnectors.passwordUpdater(newPasswordTextField.getText(), currentUserTextField.getText(), currentPasswordTextField.getText());
 
-                //Los dos setText vacian los dos text field por seguridad despues 
-                //de que se introduzcan el usuario y nueva contrasena 
+            if (passwordOk) {
+                frame.dispose();
                 currentPasswordTextField.setText("");
-                newPasswordTextField.setText("");
+            } else {
                 
-                //Infobox que se muestra al usuario si el cambio sale bien
-                infoBox("Password succesfully updated", "Password succesfully updated");
-
-            } catch (SQLException e1) {
-                //Rellenar
-                infoBox("Error updating password", "Error updating");
             }
         }
     }

@@ -1,11 +1,12 @@
 package Forms;
 
+import data.DBConnectors;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.sql.*;
 
-public class RegisterForm implements ActionListener {
+public final class RegisterForm implements ActionListener {
 
     JFrame frame;
     JLabel topLabel = new JLabel("Please choose your username and password");
@@ -71,35 +72,23 @@ public class RegisterForm implements ActionListener {
         if (e.getSource() == goToLoginButton) {
             try {
                 frame.dispose();
-                new LoginForm();
+                LoginForm loginForm = new LoginForm();
 
             } catch (Exception e1) {
-                e1.printStackTrace();
             }
         }
 
         if (e.getSource() == registerButton) {
 
-            try {
-                //Objeto conexion
-                Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/despensify", "root", "union");
-                //Preapared Statement
-                PreparedStatement Pstatement = connection.prepareStatement("INSERT into user(username, password) values(?, SHA2(?, 256))");
-                Pstatement.setString(1, userTextField.getText());
-                Pstatement.setString(2, passwordField.getText());
-                Pstatement.executeUpdate();
-                
-                //Los dos siguientes setText vacian los dos text field
-                userTextField.setText("");
+            
+            Boolean registerOk = DBConnectors.Registerer(userTextField.getText(), passwordField.getText());
+            
+            if (registerOk) {
+                frame.dispose();
                 passwordField.setText("");
-                
-                //Llamamos al metodo que musetra la etiqueta de registro correcto
-                infoBox("Nuevo usuario registrado", "Registrado correctamente");
-                
-            } catch (SQLException e1) {
-                e1.printStackTrace();
+            } else{
+                infoBox("Incorrect username or password entered", "Register failed");
             }
         }
     }
-
 }
