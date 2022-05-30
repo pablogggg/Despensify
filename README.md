@@ -1,7 +1,7 @@
 # Despensify
 
 Despensify es una despensa digital a través de la cual podemos organizar el inventario, control y compra de los productos que utilizamos en nuestra
-casa diariamente. Mediante un interfaz sencillo y amigable el usuario puede realizar un registro y login de manera segura y utilizando sus credenciales acceder a su cuenta personal de usuario. Desde la página principal de la aplicación es posible consultar, añadir, editar o eliminar una serie de productos a la despensa digital, que serán almacenados en una base de datos MySQL conectada a nuestra aplicación. Respecto a los usuarios, es posible actualizar la contraseña de cada uno desde el Panel correspondiente, y mediante la gestión de usuarios que hace la base de datos, varias personas podrán utilizar diferentes cuentas en el mismo ordenador sin compartir una misma despensa digital. El programa funciona como una aplicación de escritorio en local.
+casa diariamente. Mediante un interfaz sencillo y amigable el usuario puede realizar un registro y login de manera segura y utilizando sus credenciales acceder a su cuenta personal de usuario. Desde la página principal de la aplicación es posible consultar, añadir, editar o eliminar una serie de productos a la despensa digital, que serán almacenados en una base de datos MySQL conectada a nuestra aplicación. Respecto a los usuarios, es posible actualizar la contraseña de cada uno desde el Panel correspondiente y, mediante la gestión de usuarios que hace la base de datos, varias personas podrán utilizar diferentes cuentas en el mismo ordenador sin compartir una misma despensa digital. El programa funciona como una aplicación de escritorio en local.
 
  ## Guía de instalación y requisitos
 
@@ -13,11 +13,11 @@ https://www.campusmvp.es/recursos/post/Paso-a-paso-como-instalar-el-JDK-de-Java-
 Tutorial para configurar las variables de entorno:
 https://www.aprenderaprogramar.com/index.php?option=com_content&view=article&id=389:configurar-java-en-windows-variables-de-entorno-javahome-y-path-cu00610b&catid=68&Itemid=188
 
-Posteriormente, descargamos el proyecto desde mi página de Github en forma-to .zip, en la dirección siguiente:
+Posteriormente, descargamos el proyecto desde mi página de Github en formato .zip, en la dirección siguiente:
 https://github.com/pablogggg/Despensify
 
-Una vez descargado, descomprimimos en una carpeta y abrimos el archivo SQL con MySQL para cargar la base de datos con las dos tablas, necesarias para que el programa funcione. Como el usuario y contraseña usados son los utilizados en MySQL por defecto (root) y lo mismo sucede con el puerto, el pro-grama debería funcionar en cualquier ordenador siempre que el usuario y con-traseña usados en MySQL para establecer la conexión sean los usados por defecto por MySQL.
-A continuación, abrimos el proyecto con el IDE Apache Netbeans 13 para evi-tar errores originados por utilizar diferentes versiones u otro IDE. Dentro del paquete Source Packages encontramos el paquete Application, que solo con-tiene una clase java llamada AppMain.java, que a su vez contiene el método principal del programa. Clicamos con botón derecho, seguidamente clicamos en “Ejecutar” y el programa se lanza. Ya podemos utilizar Despensify.
+Una vez descargado, descomprimimos en una carpeta y abrimos el archivo SQL con MySQL para cargar la base de datos con las dos tablas necesarias para que el programa funcione. El archivo SQL va a cargarnos también un usuario y contraseña concretos para que la aplicación no de problemas al probarla en diferentes ordenadores.
+A continuación, abrimos el proyecto con el IDE Apache Netbeans 13 para evitar errores originados por utilizar diferentes versiones u otro IDE. Dentro del paquete Source Packages encontramos el paquete Application, que solo contiene una clase java llamada AppMain.java, que a su vez contiene el método principal del programa. Clicamos con botón derecho, seguidamente clicamos en “Ejecutar” y el programa se lanza. Ya podemos utilizar Despensify.
 
 ## Construido con 
 
