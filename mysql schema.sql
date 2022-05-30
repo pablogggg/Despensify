@@ -81,4 +81,6 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-23 16:43:49
+
+CREATE USER 'despensify_user'@'localhost' IDENTIFIED BY 'despensify1234';
+GRANT ALL PRIVILEGES ON despensify.*  TO 'despensify_user'@'localhost';
