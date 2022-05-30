@@ -16,7 +16,7 @@ https://www.aprenderaprogramar.com/index.php?option=com_content&view=article&id=
 Posteriormente, descargamos el proyecto desde mi página de Github en formato .zip, en la dirección siguiente:
 https://github.com/pablogggg/Despensify
 
-Una vez descargado, descomprimimos en una carpeta y abrimos el archivo SQL con MySQL para cargar la base de datos con las dos tablas necesarias para que el programa funcione. El archivo SQL va a cargarnos también un usuario y contraseña concretos para que la aplicación no de problemas al probarla en diferentes ordenadores.
+Una vez descargado, descomprimimos en una carpeta y abrimos y ejecutamos el archivo SQL con MySQL para cargar la base de datos con las dos tablas necesarias para que el programa funcione. El archivo SQL va a cargarnos también un usuario y contraseña concretos para que la aplicación no de problemas al probarla en diferentes ordenadores.
 A continuación, abrimos el proyecto con el IDE Apache Netbeans 13 para evitar errores originados por utilizar diferentes versiones u otro IDE. Dentro del paquete Source Packages encontramos el paquete Application, que solo contiene una clase java llamada AppMain.java, que a su vez contiene el método principal del programa. Clicamos con botón derecho, seguidamente clicamos en “Ejecutar” y el programa se lanza. Ya podemos utilizar Despensify.
 
 ## Construido con 
