@@ -1,7 +1,7 @@
 package Forms;
 
 import data.DBConnection;
-import data.DBConnectors;
+import data.DBOperations;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -89,7 +89,7 @@ public final class CreateNewPasswordForm implements ActionListener {
             String newPassword = newPasswordTextField.getText();
             String currentPassword = currentPasswordTextField.getText();
             
-             Boolean passwordOk = DBConnectors.passwordUpdater(newPasswordTextField.getText(), currentUserTextField.getText(), currentPasswordTextField.getText());
+             Boolean passwordOk = DBOperations.passwordUpdater(newPasswordTextField.getText(), currentUserTextField.getText(), currentPasswordTextField.getText());
 
             if (passwordOk) {
                 frame.dispose();

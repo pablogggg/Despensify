@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DBConnectors {
+public class DBOperations {
 
     //funcion para realizar el login
     public static Boolean loginMaker(String a, String b) {
@@ -81,6 +81,7 @@ public class DBConnectors {
 //                currentPasswordTextField.setText("");
 //                newPasswordTextField.setText("");
                 
+                
                 //Infobox que se muestra al usuario si el cambio sale bien
                 infoBox("Password succesfully updated", "Password succesfully updated");
 
@@ -88,11 +89,10 @@ public class DBConnectors {
                 //Rellenar
                 infoBox("Error updating password", "Error updating");
             }
-        
-        
         return false;
     }
     
+    //funcion para realizar registros
     public static boolean Registerer(String user, String password){
         try {
                 Connection conn;
@@ -107,20 +107,13 @@ public class DBConnectors {
 //                userTextField.setText("");
 //                passwordField.setText("");
 
-                
-                
                 //Llamamos al metodo que musetra la etiqueta de registro correcto
                 infoBox("Nuevo usuario registrado", "Registrado correctamente");
                 
             } catch (SQLException e1) {
                 System.out.println("SQL Exception in Register");
             }
-        
-        
-        
-        
         return false;
-        
     }
     
     
