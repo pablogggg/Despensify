@@ -1,8 +1,8 @@
 package Forms;
 
 import data.DBConnection;
-import data.DBConnectors;
-import static data.DBConnectors.loginMaker;
+import data.DBOperations;
+import static data.DBOperations.loginMaker;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -109,7 +109,7 @@ public final class LoginForm implements ActionListener {
         //Boton para realizar el login
         if (e.getSource() == loginButton) {
 
-            Boolean loginOk = DBConnectors.loginMaker(userTextField.getText(), passwordField.getText());
+            Boolean loginOk = DBOperations.loginMaker(userTextField.getText(), passwordField.getText());
 
             if (loginOk) {
                 frame.dispose();

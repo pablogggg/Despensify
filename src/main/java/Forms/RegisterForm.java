@@ -1,6 +1,6 @@
 package Forms;
 
-import data.DBConnectors;
+import data.DBOperations;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
@@ -75,13 +75,14 @@ public final class RegisterForm implements ActionListener {
                 LoginForm loginForm = new LoginForm();
 
             } catch (Exception e1) {
+                System.out.println("Something went wrong.");
             }
         }
 
         if (e.getSource() == registerButton) {
 
             
-            Boolean registerOk = DBConnectors.Registerer(userTextField.getText(), passwordField.getText());
+            Boolean registerOk = DBOperations.Registerer(userTextField.getText(), passwordField.getText());
             
             if (registerOk) {
                 frame.dispose();

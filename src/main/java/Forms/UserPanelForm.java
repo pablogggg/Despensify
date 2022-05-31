@@ -75,7 +75,7 @@ public final class UserPanelForm implements ActionListener {
                         frame.dispose();
                         CreateNewPasswordForm createNewPasswordForm = new CreateNewPasswordForm();
                     }catch (Exception e1){
-                        System.out.println("");
+                        System.out.println("Something went wrong.");
                     }
                 }
             }
