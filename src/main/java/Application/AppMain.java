@@ -3,6 +3,8 @@ package Application;
 import Forms.LoginForm;
 import javax.swing.JFrame;
 
+//Prueba merge
+
 public class AppMain extends JFrame {
 
     /*El metodo main arranca la app mostrando el formulario de login, a partir
