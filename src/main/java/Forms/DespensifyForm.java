@@ -1,6 +1,7 @@
 package Forms;
 
 import data.DBConnection;
+import data.DBOperations;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -228,46 +229,14 @@ public class DespensifyForm extends javax.swing.JFrame {
     Connection con1;
     PreparedStatement insert;
 
-    //METODO PARA ACTUALIZAR LA TABLA DEL FORMULARIO CON LA INFO DEE LA BD
+    //METODO PARA ACTUALIZAR LA TABLA DEL FORMULARIO CON LA INFO DE LA BD
     private void tableUpdate() {
-        int c;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            con1 = DBConnection.getConnection();
-            insert = con1.prepareStatement("SELECT * FROM item WHERE user_id=?");
-            insert.setString(1, LoginForm.getThisSessionUserId());
-
-            ResultSet rs = insert.executeQuery();
-            ResultSetMetaData Rss = rs.getMetaData();
-            c = Rss.getColumnCount();
-
-            DefaultTableModel Df = (DefaultTableModel) jTable1.getModel();
-            Df.setRowCount(0);
-
-            while (rs.next()) {
-                Vector v2 = new Vector();
-
-                for (int a = 1; a <= c; a++) {
-                    v2.add(rs.getString("item_id"));
-                    v2.add(rs.getString("productname"));
-                    v2.add(rs.getString("quantity"));
-                    v2.add(rs.getString("measurement"));
-                }
-
-                Df.addRow(v2);
-
-            }
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        DefaultTableModel Df = (DefaultTableModel) jTable1.getModel();
+        DBOperations.tableUpdater(Df);
     }
 
-    //BOTON ADD
+    //BOTON ADD para agregar a la tabla y BD la info recogida en el formulario
+    //Hay que aligerarlo creando una funcion en DBOperations
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
@@ -287,6 +256,8 @@ public class DespensifyForm extends javax.swing.JFrame {
             insert.executeUpdate();
 
             JOptionPane.showMessageDialog(this, "Record Added");
+            
+            
             tableUpdate();
 
             //reseteamos el interior de los jtextbox
@@ -334,6 +305,7 @@ public class DespensifyForm extends javax.swing.JFrame {
             String measurement = txtmeasurement.getText();
 
             Class.forName("com.mysql.cj.jdbc.Driver");
+            con1 = DBConnection.getConnection();
 
             insert = con1.prepareStatement("UPDATE item SET productname =?, quantity =?, measurement =? WHERE item_id =? ");
             insert.setString(1, productname);
@@ -375,6 +347,8 @@ public class DespensifyForm extends javax.swing.JFrame {
             if (dialogResult == JOptionPane.YES_OPTION) {
 
                 Class.forName("com.mysql.cj.jdbc.Driver");
+                
+                con1 = DBConnection.getConnection();
 
                 insert = con1.prepareStatement("DELETE FROM item WHERE item_id =? ");
 
@@ -472,9 +446,9 @@ public class DespensifyForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    public javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    public static javax.swing.JTable jTable1;
     private javax.swing.JTextField txtmeasurement;
     private javax.swing.JTextField txtproductname;
     private javax.swing.JTextField txtquantity;
