@@ -80,7 +80,6 @@ public final class RegisterForm implements ActionListener {
         }
 
         if (e.getSource() == registerButton) {
-
             
             Boolean registerOk = DBOperations.Registerer(userTextField.getText(), passwordField.getText());
             
@@ -88,7 +87,7 @@ public final class RegisterForm implements ActionListener {
                 frame.dispose();
                 passwordField.setText("");
             } else{
-                infoBox("Incorrect username or password entered", "Register failed");
+                System.out.println("Problema en el registro");
             }
         }
     }

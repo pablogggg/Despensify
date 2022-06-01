@@ -4,8 +4,10 @@ import Forms.DespensifyForm;
 import Forms.LoginForm;
 import static Forms.LoginForm.*;
 import java.sql.*;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 public class DBOperations {
 
@@ -109,7 +111,7 @@ public class DBOperations {
 //                userTextField.setText("");
 //                passwordField.setText("");
             //Llamamos al metodo que musetra la etiqueta de registro correcto
-            infoBox("Nuevo usuario registrado", "Registrado correctamente");
+            infoBox("New User Registered", "User registration completed");
 
         } catch (SQLException e1) {
             System.out.println("SQL Exception in Register");
@@ -127,5 +129,54 @@ public class DBOperations {
             return false;
         }
     }
+    
+    //Metodos para ir refactorizando la clase Despensify
+    //*******************************************
+    
+    //Metodo para actualizar la BD con la info de la tabla. El metodo recibe
+    //un parametro para evitar una dependencia circular entre las clases
+    public static void tableUpdater(DefaultTableModel Df){
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
+            Connection con1;
+            con1 = DBConnection.getConnection();
+            PreparedStatement insert;
+            insert = con1.prepareStatement("SELECT * FROM item WHERE user_id=?");
+            insert.setString(1, LoginForm.getThisSessionUserId());
+
+            ResultSet rs = insert.executeQuery();
+            ResultSetMetaData Rss = rs.getMetaData();
+            int c = Rss.getColumnCount();
+
+            Df.setRowCount(0);
+
+            while (rs.next()) {
+                Vector v2 = new Vector();
+
+                for (int a = 1; a <= c; a++) {
+                    v2.add(rs.getString("item_id"));
+                    v2.add(rs.getString("productname"));
+                    v2.add(rs.getString("quantity"));
+                    v2.add(rs.getString("measurement"));
+                }
+
+                Df.addRow(v2);
+
+            }
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DBOperations.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DBOperations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //Metodo para actualizar tabla y BD cuando clicamos en el botón update
+    
+    
+    
+    
+    
 }
