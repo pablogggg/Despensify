@@ -3,12 +3,8 @@ package Forms;
 import data.DBConnection;
 import data.DBOperations;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -31,37 +27,37 @@ public class DespensifyForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jLabelDespensify = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabelProductName = new javax.swing.JLabel();
+        jLabelQuantity = new javax.swing.JLabel();
+        jLabelMeasurement = new javax.swing.JLabel();
         txtproductname = new javax.swing.JTextField();
         txtquantity = new javax.swing.JTextField();
         txtmeasurement = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        addButton = new javax.swing.JButton();
+        editButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jButtonGoToUserPanel = new javax.swing.JButton();
-        jButton5Logout = new javax.swing.JButton();
+        goToUserPanelButton = new javax.swing.JButton();
+        logoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 102, 102));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Product Name");
+        jLabelDespensify.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabelDespensify.setText("Despensify");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Item Registration"));
         jPanel1.setForeground(new java.awt.Color(255, 51, 51));
         jPanel1.setOpaque(false);
 
-        jLabel2.setText("Product Name");
+        jLabelProductName.setText("Product Name");
 
-        jLabel3.setText("Quantity");
+        jLabelQuantity.setText("Quantity");
 
-        jLabel4.setText("Measurement");
+        jLabelMeasurement.setText("Measurement");
 
         txtproductname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,24 +65,24 @@ public class DespensifyForm extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Add");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addButton.setText("Add");
+        addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Edit");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        editButton.setText("Edit");
+        editButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                editButtonActionPerformed(evt);
             }
         });
 
-        jButton3.setText("Delete");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                deleteButtonActionPerformed(evt);
             }
         });
 
@@ -98,20 +94,20 @@ public class DespensifyForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(jLabelMeasurement)
                         .addGap(59, 59, 59)
                         .addComponent(txtmeasurement))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 11, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(addButton)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(editButton)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3))
+                        .addComponent(deleteButton))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabelProductName)
+                            .addComponent(jLabelQuantity))
                         .addGap(55, 55, 55)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtquantity)
@@ -123,21 +119,21 @@ public class DespensifyForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabelProductName)
                     .addComponent(txtproductname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(jLabelQuantity)
                     .addComponent(txtquantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(jLabelMeasurement)
                     .addComponent(txtmeasurement, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(addButton)
+                    .addComponent(editButton)
+                    .addComponent(deleteButton))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -164,17 +160,17 @@ public class DespensifyForm extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        jButtonGoToUserPanel.setText("Go to User Panel");
-        jButtonGoToUserPanel.addActionListener(new java.awt.event.ActionListener() {
+        goToUserPanelButton.setText("Go to User Panel");
+        goToUserPanelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGoToUserPanelActionPerformed(evt);
+                goToUserPanelButtonActionPerformed(evt);
             }
         });
 
-        jButton5Logout.setText("Logout");
-        jButton5Logout.addActionListener(new java.awt.event.ActionListener() {
+        logoutButton.setText("Logout");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5LogoutActionPerformed(evt);
+                logoutButtonActionPerformed(evt);
             }
         });
 
@@ -186,7 +182,7 @@ public class DespensifyForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(56, 56, 56)
-                        .addComponent(jLabel1))
+                        .addComponent(jLabelDespensify))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -195,9 +191,9 @@ public class DespensifyForm extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(134, 134, 134)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButtonGoToUserPanel)
+                                    .addComponent(goToUserPanelButton)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jButton5Logout)
+                                        .addComponent(logoutButton)
                                         .addGap(23, 23, 23)))))
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -207,15 +203,15 @@ public class DespensifyForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
-                .addComponent(jLabel1)
+                .addComponent(jLabelDespensify)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(83, 83, 83)
-                        .addComponent(jButtonGoToUserPanel)
+                        .addComponent(goToUserPanelButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5Logout))
+                        .addComponent(logoutButton))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 8, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -237,7 +233,7 @@ public class DespensifyForm extends javax.swing.JFrame {
 
     //BOTON ADD para agregar a la tabla y BD la info recogida en el formulario
     //Hay que aligerarlo creando una funcion en DBOperations
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
 
         String productname = txtproductname.getText();
@@ -245,6 +241,7 @@ public class DespensifyForm extends javax.swing.JFrame {
         String measurement = txtmeasurement.getText();
 
         //CODIFICAMOS LA INSERCION DE LOS VALORES A LA BD A TRAVES DEL FORM
+        
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             con1 = DBConnection.getConnection();
@@ -271,7 +268,7 @@ public class DespensifyForm extends javax.swing.JFrame {
             Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_addButtonActionPerformed
 
     //EVENTO PARA CLIC DE RATON SOBRE LA TABLA
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -290,7 +287,7 @@ public class DespensifyForm extends javax.swing.JFrame {
     }//GEN-LAST:event_txtproductnameActionPerformed
 
     //EVENTO PARA EL BOTON EDIT
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         // TODO add your handling code here:
 
         DefaultTableModel Df = (DefaultTableModel) jTable1.getModel();
@@ -328,10 +325,10 @@ public class DespensifyForm extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_editButtonActionPerformed
 
     //BOTON DELETE
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
 
         DefaultTableModel Df = (DefaultTableModel) jTable1.getModel();
@@ -372,10 +369,10 @@ public class DespensifyForm extends javax.swing.JFrame {
         }
 
 
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_deleteButtonActionPerformed
 
     //BOTON DE GO TO USER PANEL
-    private void jButtonGoToUserPanelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGoToUserPanelActionPerformed
+    private void goToUserPanelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goToUserPanelButtonActionPerformed
         // TODO add your handling code here:
         try {
 
@@ -385,10 +382,10 @@ public class DespensifyForm extends javax.swing.JFrame {
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-    }//GEN-LAST:event_jButtonGoToUserPanelActionPerformed
+    }//GEN-LAST:event_goToUserPanelButtonActionPerformed
 
     //BOTON DE LOGOUT
-    private void jButton5LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5LogoutActionPerformed
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         // TODO add your handling code here:
         try {
 
@@ -398,7 +395,7 @@ public class DespensifyForm extends javax.swing.JFrame {
         } catch (Exception e1) {
             e1.printStackTrace();
         }
-    }//GEN-LAST:event_jButton5LogoutActionPerformed
+    }//GEN-LAST:event_logoutButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -436,18 +433,18 @@ public class DespensifyForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton5Logout;
-    private javax.swing.JButton jButtonGoToUserPanel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton addButton;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JButton editButton;
+    private javax.swing.JButton goToUserPanelButton;
+    private javax.swing.JLabel jLabelDespensify;
+    private javax.swing.JLabel jLabelMeasurement;
+    private javax.swing.JLabel jLabelProductName;
+    private javax.swing.JLabel jLabelQuantity;
     public javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable jTable1;
+    private javax.swing.JButton logoutButton;
     private javax.swing.JTextField txtmeasurement;
     private javax.swing.JTextField txtproductname;
     private javax.swing.JTextField txtquantity;
