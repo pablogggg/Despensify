@@ -7,7 +7,6 @@ import java.sql.*;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class DBOperations {
@@ -216,13 +215,20 @@ public class DBOperations {
     }
     
     //Metodo para eliminar en la tabla al clicar el boton DELETE
-    public static void tableDeletter(){
+    public static void tableDeletter(int id){
         
-        
-        
-        
-        
-        
+        try {
+                Class.forName("com.mysql.cj.jdbc.Driver");
+                Connection con1 = DBConnection.getConnection();
+                PreparedStatement insert = con1.prepareStatement("DELETE FROM item WHERE item_id =? ");
+                insert.setInt(1, id);
+                insert.executeUpdate();
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     

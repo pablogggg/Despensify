@@ -4,7 +4,6 @@ import data.DBOperations;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.sql.*;
 
 public final class RegisterForm implements ActionListener {
 

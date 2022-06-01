@@ -1,14 +1,9 @@
 package Forms;
 
-import data.DBConnection;
 import data.DBOperations;
-import static data.DBOperations.loginMaker;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public final class LoginForm implements ActionListener {
 

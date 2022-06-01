@@ -1,12 +1,8 @@
 package Forms;
 
-import data.DBConnection;
 import data.DBOperations;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -269,9 +265,9 @@ public class DespensifyForm extends javax.swing.JFrame {
         String productname = txtproductname.getText();
         String quantity = txtquantity.getText();
         String measurement = txtmeasurement.getText();
-        
+
         DBOperations.tableEditter(productname, quantity, measurement, id);
-        
+
         JOptionPane.showMessageDialog(this, "Record Updated");
         tableUpdate();
 
@@ -283,48 +279,26 @@ public class DespensifyForm extends javax.swing.JFrame {
     }//GEN-LAST:event_editButtonActionPerformed
 
     //BOTON DELETE
-    //ES EL PROXIMO BOTON A REFACTORIZAR
+    //El metodo tableDeletter hace parte de la funcionalidad dsede DBOperations
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
 
         DefaultTableModel Df = (DefaultTableModel) jTable1.getModel();
         int selectedIndex = jTable1.getSelectedRow();
-
-        try {
-            int id = Integer.parseInt(Df.getValueAt(selectedIndex, 0).toString());
-
-            //Hay algunas diferencias rsepecto al boton edit:
-            int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to Delete the Record?", "Warning", JOptionPane.YES_NO_OPTION);
-
-            if (dialogResult == JOptionPane.YES_OPTION) {
-
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                
-                con1 = DBConnection.getConnection();
-
-                insert = con1.prepareStatement("DELETE FROM item WHERE item_id =? ");
-
-                insert.setInt(1, id);
-
-                insert.executeUpdate();
-
-                JOptionPane.showMessageDialog(this, "Record Deleted");
-                tableUpdate();
-
-                //reseteamos el interior de los jtextbox
-                txtproductname.setText("");
-                txtquantity.setText("");
-                txtmeasurement.setText("");
-                txtproductname.requestFocus();
-            }
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
+        int id = Integer.parseInt(Df.getValueAt(selectedIndex, 0).toString());
+        
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to Delete the Record?", "Warning", JOptionPane.YES_NO_OPTION);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            DBOperations.tableDeletter(id);
         }
-
-
+        
+        JOptionPane.showMessageDialog(this, "Record Deleted");
+        tableUpdate();
+        //reseteamos el interior de los jtextbox
+        txtproductname.setText("");
+        txtquantity.setText("");
+        txtmeasurement.setText("");
+        txtproductname.requestFocus();
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     //BOTON DE GO TO USER PANEL

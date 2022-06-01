@@ -1,11 +1,9 @@
 package Forms;
 
-import data.DBConnection;
 import data.DBOperations;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import java.sql.*;
 
 
 public final class CreateNewPasswordForm implements ActionListener {
