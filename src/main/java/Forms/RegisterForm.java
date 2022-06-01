@@ -42,7 +42,6 @@ public final class RegisterForm implements ActionListener {
         passwordField.setBounds(100, 93, 165, 23);
         goToLoginButton.setBounds(60, 140, 190, 25);
         registerButton.setBounds(60, 180, 190, 25);
-
     }
 
     public void addComponentsToFrame() {
@@ -86,6 +85,7 @@ public final class RegisterForm implements ActionListener {
                 frame.dispose();
                 passwordField.setText("");
             } else{
+                infoBox("Invalid username or password entered, try something else", "Register failed");
                 System.out.println("Registration failed");
             }
                 userTextField.setText("");

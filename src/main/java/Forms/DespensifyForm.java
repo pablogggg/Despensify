@@ -288,17 +288,24 @@ public class DespensifyForm extends javax.swing.JFrame {
         int id = Integer.parseInt(Df.getValueAt(selectedIndex, 0).toString());
         
         int dialogResult = JOptionPane.showConfirmDialog(null, "Do you want to Delete the Record?", "Warning", JOptionPane.YES_NO_OPTION);
-        if (dialogResult == JOptionPane.YES_OPTION) {
+        
+        if (dialogResult == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(this, "Record Not Deleted");
+        }
+        else if (dialogResult == JOptionPane.YES_OPTION) {
             DBOperations.tableDeletter(id);
+            JOptionPane.showMessageDialog(this, "Record Deleted");
         }
         
-        JOptionPane.showMessageDialog(this, "Record Deleted");
+        
         tableUpdate();
         //reseteamos el interior de los jtextbox
         txtproductname.setText("");
         txtquantity.setText("");
         txtmeasurement.setText("");
         txtproductname.requestFocus();
+        
+        
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     //BOTON DE GO TO USER PANEL

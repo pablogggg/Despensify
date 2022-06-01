@@ -83,11 +83,12 @@ public class DBOperations {
 
             if (newPassword.isEmpty()) {
                 infoBox("New Password field is empty", "New Password field is empty");
-
+            } else if (username.isEmpty()) {
+                infoBox("Username field is empty", "Username field is empty");
+            } else if (oldPassword.isEmpty()) {
+                infoBox("Current Password field is empty", "Current Password field is empty");
             } else {
                 Pstatement.executeUpdate();
-
-                //Infobox que se muestra al usuario si el cambio sale bien
                 infoBox("Password succesfully updated", "Password succesfully updated");
             }
         } catch (SQLException e1) {
@@ -176,7 +177,7 @@ public class DBOperations {
     }
 
     //Metodo para agregar a la tabla al clicar el boton ADD
-    public static void tableAdder(String productname, String quantity, String measurement){
+    public static void tableAdder(String productname, String quantity, String measurement) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con1 = DBConnection.getConnection();
@@ -187,15 +188,15 @@ public class DBOperations {
             insert.setString(4, LoginForm.getThisSessionUserId());
             insert.executeUpdate();
 
-        }catch (ClassNotFoundException ex) {
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     //Metodo para editar la tabla al clicar el boton EDITAR
-    public static void tableEditter(String productname, String quantity, String measurement, int id){
+    public static void tableEditter(String productname, String quantity, String measurement, int id) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection con1 = DBConnection.getConnection();
@@ -213,16 +214,16 @@ public class DBOperations {
             Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     //Metodo para eliminar en la tabla al clicar el boton DELETE
-    public static void tableDeletter(int id){
-        
+    public static void tableDeletter(int id) {
+
         try {
-                Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con1 = DBConnection.getConnection();
-                PreparedStatement insert = con1.prepareStatement("DELETE FROM item WHERE item_id =? ");
-                insert.setInt(1, id);
-                insert.executeUpdate();
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con1 = DBConnection.getConnection();
+            PreparedStatement insert = con1.prepareStatement("DELETE FROM item WHERE item_id =? ");
+            insert.setInt(1, id);
+            insert.executeUpdate();
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
@@ -230,11 +231,4 @@ public class DBOperations {
             Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    
-    
-    
-    
-    
 }
