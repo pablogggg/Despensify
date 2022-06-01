@@ -80,15 +80,16 @@ public class DBOperations {
             Pstatement.setString(1, newPassword);
             Pstatement.setString(2, username);
             Pstatement.setString(3, oldPassword);
-            Pstatement.executeUpdate();
 
-            //Los dos setText vacian los dos text field por seguridad despues 
-            //de que se introduzcan el usuario y nueva contrasena 
-//                currentPasswordTextField.setText("");
-//                newPasswordTextField.setText("");
-            //Infobox que se muestra al usuario si el cambio sale bien
-            infoBox("Password succesfully updated", "Password succesfully updated");
+            if (newPassword.isEmpty()) {
+                infoBox("New Password field is empty", "New Password field is empty");
 
+            } else {
+                Pstatement.executeUpdate();
+
+                //Infobox que se muestra al usuario si el cambio sale bien
+                infoBox("Password succesfully updated", "Password succesfully updated");
+            }
         } catch (SQLException e1) {
             //Rellenar
             infoBox("Error updating password", "Error updating");
@@ -105,14 +106,16 @@ public class DBOperations {
 
             Pstatement.setString(1, user);
             Pstatement.setString(2, password);
-            Pstatement.executeUpdate();
 
-            //Los dos siguientes setText vacian los dos text field
-//                userTextField.setText("");
-//                passwordField.setText("");
-            //Llamamos al metodo que musetra la etiqueta de registro correcto
-            infoBox("New User Registered", "User registration completed");
+            if (isUsernameEmpty(user) || isUsernameEmpty(password)) {
+                System.out.println("Empty or null ");
+                infoBox("Incorrect username or password entered", "Registration failed");
+            } else {
+                Pstatement.executeUpdate();
 
+                //Llamamos al metodo que musetra la etiqueta de registro correcto
+                infoBox("New User Registered", "User registration completed");
+            }
         } catch (SQLException e1) {
             System.out.println("SQL Exception in Register");
         }
@@ -129,14 +132,13 @@ public class DBOperations {
             return false;
         }
     }
-    
+
     //Metodos para ir refactorizando la clase Despensify
     //*******************************************
-    
     //Metodo para actualizar la BD con la info de la tabla. El metodo recibe
     //un parametro para evitar una dependencia circular entre las clases
-    public static void tableUpdater(DefaultTableModel Df){
-        
+    public static void tableUpdater(DefaultTableModel Df) {
+
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -174,9 +176,4 @@ public class DBOperations {
     }
 
     //Metodo para actualizar tabla y BD cuando clicamos en el botón update
-    
-    
-    
-    
-    
 }

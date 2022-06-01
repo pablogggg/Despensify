@@ -97,6 +97,10 @@ public final class CreateNewPasswordForm implements ActionListener {
             } else {
                 System.out.println("Error when creating new Password");
             }
+            //Reseteamos los TextFields
+            currentUserTextField.setText("");
+            currentPasswordTextField.setText("");
+            newPasswordTextField.setText("");
         }
     }
 }
