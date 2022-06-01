@@ -80,7 +80,7 @@ public final class CreateNewPasswordForm implements ActionListener {
                 UserPanelForm userPanelForm = new UserPanelForm();
 
             } catch (Exception e1) {
-                System.out.println("Error al volver a Panel de Usuario");
+                System.out.println("Error traveling to User Panel");
             }
         }
 
@@ -95,7 +95,7 @@ public final class CreateNewPasswordForm implements ActionListener {
                 frame.dispose();
                 currentPasswordTextField.setText("");
             } else {
-                
+                System.out.println("Error when creating new Password");
             }
         }
     }
