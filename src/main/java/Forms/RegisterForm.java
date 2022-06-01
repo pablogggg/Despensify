@@ -87,8 +87,10 @@ public final class RegisterForm implements ActionListener {
                 frame.dispose();
                 passwordField.setText("");
             } else{
-                System.out.println("Problema en el registro");
+                System.out.println("Registration failed");
             }
+                userTextField.setText("");
+                passwordField.setText("");
         }
     }
 }

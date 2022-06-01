@@ -257,7 +257,6 @@ public class DespensifyForm extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Record Added");
             
-            
             tableUpdate();
 
             //reseteamos el interior de los jtextbox

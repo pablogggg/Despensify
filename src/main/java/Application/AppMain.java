@@ -4,6 +4,7 @@ import Forms.LoginForm;
 import javax.swing.JFrame;
 
 //Prueba merge
+//Prueba merge2
 
 public class AppMain extends JFrame {
 
