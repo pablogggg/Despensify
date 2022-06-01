@@ -7,6 +7,7 @@ import java.sql.*;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class DBOperations {
@@ -175,5 +176,59 @@ public class DBOperations {
         }
     }
 
-    //Metodo para actualizar tabla y BD cuando clicamos en el botón update
+    //Metodo para agregar a la tabla al clicar el boton ADD
+    public static void tableAdder(String productname, String quantity, String measurement){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con1 = DBConnection.getConnection();
+            PreparedStatement insert = con1.prepareStatement("INSERT into item(productname, quantity, measurement, user_id)values(?,?,?,?)");
+            insert.setString(1, productname);
+            insert.setString(2, quantity);
+            insert.setString(3, measurement);
+            insert.setString(4, LoginForm.getThisSessionUserId());
+            insert.executeUpdate();
+
+        }catch (ClassNotFoundException ex) {
+            Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //Metodo para editar la tabla al clicar el boton EDITAR
+    public static void tableEditter(String productname, String quantity, String measurement, int id){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con1 = DBConnection.getConnection();
+
+            PreparedStatement insert = con1.prepareStatement("UPDATE item SET productname =?, quantity =?, measurement =? WHERE item_id =? ");
+            insert.setString(1, productname);
+            insert.setString(2, quantity);
+            insert.setString(3, measurement);
+            insert.setInt(4, id);
+            insert.executeUpdate();
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    //Metodo para eliminar en la tabla al clicar el boton DELETE
+    public static void tableDeletter(){
+        
+        
+        
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
 }

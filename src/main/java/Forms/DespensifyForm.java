@@ -59,12 +59,6 @@ public class DespensifyForm extends javax.swing.JFrame {
 
         jLabelMeasurement.setText("Measurement");
 
-        txtproductname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtproductnameActionPerformed(evt);
-            }
-        });
-
         addButton.setText("Add");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -232,7 +226,7 @@ public class DespensifyForm extends javax.swing.JFrame {
     }
 
     //BOTON ADD para agregar a la tabla y BD la info recogida en el formulario
-    //Hay que aligerarlo creando una funcion en DBOperations
+    //Usa un metodo de DBOperations para aligerar esta clase
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:
 
@@ -240,34 +234,16 @@ public class DespensifyForm extends javax.swing.JFrame {
         String quantity = txtquantity.getText();
         String measurement = txtmeasurement.getText();
 
-        //CODIFICAMOS LA INSERCION DE LOS VALORES A LA BD A TRAVES DEL FORM
-        
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con1 = DBConnection.getConnection();
-            insert = con1.prepareStatement("INSERT into item(productname, quantity, measurement, user_id)values(?,?,?,?)");
-            insert.setString(1, productname);
-            insert.setString(2, quantity);
-            insert.setString(3, measurement);
-            insert.setString(4, LoginForm.getThisSessionUserId());
-            insert.executeUpdate();
+        //CODIGO QUE SUSTITUYE AL ANTIGUO
+        DBOperations.tableAdder(productname, quantity, measurement);
+        JOptionPane.showMessageDialog(this, "Record Added");
+        tableUpdate();
 
-            JOptionPane.showMessageDialog(this, "Record Added");
-            
-            tableUpdate();
-
-            //reseteamos el interior de los jtextbox
-            txtproductname.setText("");
-            txtquantity.setText("");
-            txtmeasurement.setText("");
-            txtproductname.requestFocus();
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        //Despejamos los txt una vez annadido el producto
+        txtproductname.setText("");
+        txtquantity.setText("");
+        txtmeasurement.setText("");
+        txtproductname.requestFocus();
     }//GEN-LAST:event_addButtonActionPerformed
 
     //EVENTO PARA CLIC DE RATON SOBRE LA TABLA
@@ -282,52 +258,32 @@ public class DespensifyForm extends javax.swing.JFrame {
         txtmeasurement.setText(Df.getValueAt(selectedIndex, 3).toString());
     }//GEN-LAST:event_jTable1MouseClicked
 
-    private void txtproductnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtproductnameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtproductnameActionPerformed
-
     //EVENTO PARA EL BOTON EDIT
+    //El metodo tableEditter hace parte de la funcionalidad antigua desde DBOperations
     private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editButtonActionPerformed
         // TODO add your handling code here:
 
         DefaultTableModel Df = (DefaultTableModel) jTable1.getModel();
         int selectedIndex = jTable1.getSelectedRow();
+        int id = Integer.parseInt(Df.getValueAt(selectedIndex, 0).toString());
+        String productname = txtproductname.getText();
+        String quantity = txtquantity.getText();
+        String measurement = txtmeasurement.getText();
+        
+        DBOperations.tableEditter(productname, quantity, measurement, id);
+        
+        JOptionPane.showMessageDialog(this, "Record Updated");
+        tableUpdate();
 
-        try {
-            int id = Integer.parseInt(Df.getValueAt(selectedIndex, 0).toString());
-
-            String productname = txtproductname.getText();
-            String quantity = txtquantity.getText();
-            String measurement = txtmeasurement.getText();
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con1 = DBConnection.getConnection();
-
-            insert = con1.prepareStatement("UPDATE item SET productname =?, quantity =?, measurement =? WHERE item_id =? ");
-            insert.setString(1, productname);
-            insert.setString(2, quantity);
-            insert.setString(3, measurement);
-            insert.setInt(4, id);
-
-            insert.executeUpdate();
-
-            JOptionPane.showMessageDialog(this, "Record Updated");
-            tableUpdate();
-
-            //reseteamos el interior de los jtextbox
-            txtproductname.setText("");
-            txtquantity.setText("");
-            txtmeasurement.setText("");
-            txtproductname.requestFocus();
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(DespensifyForm.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //reseteamos el interior de los jtextbox
+        txtproductname.setText("");
+        txtquantity.setText("");
+        txtmeasurement.setText("");
+        txtproductname.requestFocus();
     }//GEN-LAST:event_editButtonActionPerformed
 
     //BOTON DELETE
+    //ES EL PROXIMO BOTON A REFACTORIZAR
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         // TODO add your handling code here:
 
