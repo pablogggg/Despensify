@@ -13,7 +13,7 @@ https://www.campusmvp.es/recursos/post/Paso-a-paso-como-instalar-el-JDK-de-Java-
 Tutorial para configurar las variables de entorno:
 https://www.aprenderaprogramar.com/index.php?option=com_content&view=article&id=389:configurar-java-en-windows-variables-de-entorno-javahome-y-path-cu00610b&catid=68&Itemid=188
 
-Posteriormente, descargamos el proyecto desde mi página de Github. La versión presentada se encuentra guardada como "Despensify 1.1." y debe dsecargarse en formato .zip, en la dirección siguiente:
+Posteriormente, descargamos el proyecto desde mi página de Github. La versión presentada se encuentra guardada como "Despensify 1.1." y debe descargarse en formato .zip, en la dirección siguiente:
 https://github.com/pablogggg/Despensify
 
 Una vez descargado el archivo, descomprimimos en una carpeta y abrimos y ejecutamos el archivo SQL con MySQL para cargar la base de datos con las dos tablas necesarias para que el programa funcione. El archivo SQL va a cargarnos también un usuario y contraseña concretos para que la aplicación no de problemas al probarla en diferentes ordenadores.
